@@ -6,16 +6,16 @@ pipeline{
 	}
 	
 	stages{
-		stage('Check-out'){
+		steps('Check-out'){
 			git branch:"main" , url:"https://github.com/narasimhaa44/maventest.git"
 		}
-		stage('build'){
-			sh "mvn clean install"
+		steps('build'){
+			sh "mvn clean package"
 		}
-		stage('test'){
+		steps('test'){
 			sh "mvn test"
 		}
-		stage('Run'){
+		steps('Run'){
 			sh "java -jar target/MymavenApp01-1.0-SNAPSHOT.jar"
 		}
 	}
