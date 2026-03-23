@@ -1,0 +1,30 @@
+pipeline{
+	agent any
+	
+	tools {
+		mvn 'Maven'
+	}
+	
+	stages{
+		stage('Check-out'){
+			github branch "main" url "https://github.com/narasimhaa44/maventest.git"
+		}
+		stage('build'){
+			sh "mvn clean install"
+		}
+		stage('test'){
+			sh "mvn test"
+		}
+		stage('Run'){
+			sh "java -jar target/MymavenApp01-1.0-SNAPSHOT.jar"
+		}
+	}
+	post {
+		success{
+			echo "Succesful pipeline creation"
+		}
+		error {
+			echo "Bug Occured"
+		}
+	}
+}
