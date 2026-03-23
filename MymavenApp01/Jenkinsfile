@@ -13,17 +13,23 @@ pipeline{
 		}
 		stage('build'){
 			steps{
+				dir('MymavenApp01'){	
 			    sh "mvn clean install"
+				}
 			}
 		}
 		stage('test'){
 			steps{
+				dir('MymavenApp01'){
 				sh "mvn test"
+				}
 			}
 		}
 		stage('Run'){
 			steps{
+				dir('MymavenApp01'){
 				sh "java -jar target/MymavenApp01-1.0-SNAPSHOT.jar"
+				}
 			}
 		}
 	}
