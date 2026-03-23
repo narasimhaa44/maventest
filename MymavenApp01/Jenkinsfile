@@ -6,24 +6,32 @@ pipeline{
 	}
 	
 	stages{
-		steps('Check-out'){
-			git branch:"main" , url:"https://github.com/narasimhaa44/maventest.git"
+		stage('Check-out'){
+			steps{		
+				git branch:"main" , url:"https://github.com/narasimhaa44/maventest.git"
+			}
 		}
-		steps('build'){
-			sh "mvn clean package"
+		stage('build'){
+			steps{
+			    sh "mvn clean package"
+			}
 		}
-		steps('test'){
-			sh "mvn test"
+		stage('test'){
+			steps{
+				sh "mvn test"
+			}
 		}
-		steps('Run'){
-			sh "java -jar target/MymavenApp01-1.0-SNAPSHOT.jar"
+		stage('Run'){
+			steps{
+				sh "java -jar target/MymavenApp01-1.0-SNAPSHOT.jar"
+			}
 		}
 	}
 	post {
 		success{
 			echo "Succesful pipeline creation"
 		}
-		error {
+		failure {
 			echo "Bug Occured"
 		}
 	}
