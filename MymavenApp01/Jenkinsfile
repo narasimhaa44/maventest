@@ -7,7 +7,7 @@ pipeline{
 	
 	stages{
 		stage('Check-out'){
-			github branch "main" url "https://github.com/narasimhaa44/maventest.git"
+			git branch:"main" url:"https://github.com/narasimhaa44/maventest.git"
 		}
 		stage('build'){
 			sh "mvn clean install"
