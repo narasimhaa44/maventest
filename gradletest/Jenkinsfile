@@ -1,0 +1,41 @@
+pipeline {
+    agent any
+
+    tools {
+        gradle 'Gradle'  
+    }
+
+    stages {
+
+        stage('Checkout') {
+            steps {
+                   git branch: 'main', url: 'https://github.com/narasimhaa44/maventest.git'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                dir('gradletest') {
+                    sh 'gradle build'
+                }
+            }
+        }
+
+        stage('Run Application') {
+            steps {
+                dir('gradletest') {
+                    sh 'gradle run'
+                }
+            }
+        }
+    }
+
+    post {
+        success {
+            echo 'Gradle pipeline executed successfully!'
+        }
+        failure {
+            echo 'Gradle pipeline failed!'
+        }
+    }
+}
